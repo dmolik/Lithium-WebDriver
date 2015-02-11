@@ -868,6 +868,7 @@ sub dropdown
 	my ($self, %params) = @_;
 	my $parent = $self->_element_id(%params);
 	return 0 unless defined $parent;
+	$params{method} ||= "value";
 	debug "[$params{selector}] getting $params{method}";
 	my $els = $self->_post(path => "/element/$parent/elements", {using => "css selector", value => "option"});
 	debug "Children of [$params{selector}] identfied by opaque ID: $parent:";
