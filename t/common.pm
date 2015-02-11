@@ -62,14 +62,14 @@ sub driver_conf
 	return \%WEBDRIVER_CONFIG;
 }
 
-#sub is_phantom
-#{
-#	my $driver = selenium_driver;
-#	return ($driver->{browser} eq "phantomjs")
-#		if $driver;
-#	return ($ENV{BROWSER} eq "phantomjs") if $ENV{BROWSER};
-#	return undef;
-#}
+sub is_phantom
+{
+	my $driver = driver_conf;
+	return ($driver->{browser} eq "phantomjs")
+		if $driver;
+	return ($ENV{BROWSER} eq "phantomjs") if $ENV{BROWSER};
+	return undef;
+}
 
 sub start_depends
 {
