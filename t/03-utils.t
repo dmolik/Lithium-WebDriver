@@ -6,7 +6,7 @@ use warnings;
 use Test::More;
 use Test::Output;
 
-use Lithium::Driver::Utils; 
+use Lithium::WebDriver::Utils; 
 
 
 stderr_is(
