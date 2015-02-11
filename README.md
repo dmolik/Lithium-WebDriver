@@ -1,4 +1,5 @@
-Lithium-WebDriver
+Lithium::WebDriver
+==================
 
 The README is used to introduce the module and provide instructions on
 how to install the module, any machine dependencies it may have (for
