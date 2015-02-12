@@ -72,9 +72,9 @@ sub dump
 	$OUT->{DUMP}->($obj);
 }
 
-=head1 Lithium::WebDriver::Utils
+=head1 NAME
 
-Utility functions used throughout the driver framework
+Lithium::WebDriver::Utils - Utility functions used throughout the driver framework
 
 =head1 DESCRIPTION
 

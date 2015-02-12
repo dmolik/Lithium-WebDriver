@@ -66,9 +66,9 @@ sub connect
 	$self->SUPER::connect($url);
 }
 
-=head1 Lithium::WebDriver::Phantom
+=head1 NAME
 
-Driver specific functions for connecting to phantomjs.
+Lithium::WebDriver::Phantom - Driver specific functions for connecting to phantomjs.
 
 =head1 DESCRIPTION
 

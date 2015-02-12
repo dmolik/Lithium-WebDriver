@@ -956,9 +956,9 @@ sub screenshot
 }
 
 
-=head1 Lithium::WebDriver
+=head1 NAME
 
-A WebDriver Client
+Lithium::WebDriver - A WebDriver Client
 
 =head1 DESCRIPTION
 
