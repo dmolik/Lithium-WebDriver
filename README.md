@@ -3,7 +3,9 @@ Lithium::WebDriver
 
 The Lithium::Webdriver module is a Selenium / Selenium2 WebDriver compliant interface module,
 that makes it easy to connect to a Selenium instance, Phantomjs or Selenium Grid and create,
-a WebDriver session.
+a WebDriver session. While the Lithium WebDriver is now compatible with the Lithium session
+manager it was originally developed to contect with phantomjs, selenium standalone and
+selenium.
 
 INSTALLATION
 ------------
