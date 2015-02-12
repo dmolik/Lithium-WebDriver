@@ -26,11 +26,11 @@ perldoc command.
 REFERENCES
 ----------
 
-[JSON Wire Protocol](https://code.google.com/p/selenium/wiki/JsonWireProtocol)
-[Phantomjs](http://phantomjs.org/)
-[Ghost Driver](https://github.com/detro/ghostdriver)
-[Selenium](http://www.seleniumhq.org/)
-[Selenium Grid](http://www.seleniumhq.org/docs/07_selenium_grid.jsp)
+  * [JSON Wire Protocol](https://code.google.com/p/selenium/wiki/JsonWireProtocol)
+  * [Phantomjs](http://phantomjs.org/)
+  * [Ghost Driver](https://github.com/detro/ghostdriver)
+  * [Selenium](http://www.seleniumhq.org/)
+  * [Selenium Grid](http://www.seleniumhq.org/docs/07_selenium_grid.jsp)
 
 COPYRIGHT AND LICENCE
 ---------------------
