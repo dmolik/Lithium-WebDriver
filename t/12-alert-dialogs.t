@@ -161,7 +161,7 @@ if (is_phantom) {
 		"type_alert feedback text is empty on test initialization";
 	$DRIVER->click(selector => "button.popup.input");
 	test_out "$ok 1 - Setting alert text", "$ok 2 - Confirming alertbox";
-	ok($DRIVER->alert_text, "Setting alert text");
+	ok($DRIVER->alert_text(""), "Setting alert text");
 	ok($DRIVER->confirm, "Confirming alertbox");
 	test_test name => "type_alert handles undef input",
 		skip_err => 1;
