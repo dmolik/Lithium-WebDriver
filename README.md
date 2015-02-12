@@ -23,10 +23,21 @@ perldoc command.
 
     perldoc Lithium::WebDriver
 
+REFERENCES
+----------
+
+[JSON Wire Protocol](https://code.google.com/p/selenium/wiki/JsonWireProtocol)
+[Phantomjs](http://phantomjs.org/)
+[Ghost Driver](https://github.com/detro/ghostdriver)
+[Selenium](http://www.seleniumhq.org/)
+[Selenium Grid](http://www.seleniumhq.org/docs/07_selenium_grid.jsp)
+
 COPYRIGHT AND LICENCE
 ---------------------
 
-Copyright (C) 2015 Dan Molik & James Hunt
+Copyright (C) 2015
+
+Dan Molik, Geoff Franks & James Hunt
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
