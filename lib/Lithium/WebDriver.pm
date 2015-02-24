@@ -141,30 +141,39 @@ sub _capabilities
 {
 	my ($self) = @_;
 	if ($self->{browser} =~ m/phantomjs/i) {
-		if($self->{ua}) {
-			debug "setting capabilities in Phantom Driver";
+		debug "setting capabilities for Phantomjs";
+		my %caps = (
+				 browserName => $self->{browser},
+				"phantomjs.page.settings.resourceTimeout" => 10,
+			);
+		if ($self->{phantomjs_settings}) {
+			for (keys %{$self->{phantomjs_settings}}) {
+				$caps{"phantomjs.page.settings.$_"} = $self->{phantomjs_settings}{$_};
+			}
+		}
+		if ($self->{ua}) {
 			my ($ua_platform, $ua_browser) = split m/\s*[-_ ]\s*/, $self->{ua};
 			$ua_platform = lc $ua_platform if $ua_platform;
-			$ua_browser  = lc $ua_browser if $ua_browser;
+			$ua_browser  = lc $ua_browser  if $ua_browser;
 			if ($ua_platform && $ua_browser && $user_agents->{$ua_platform}{$ua_browser}) {
 				$self->{ua} = $user_agents->{$ua_platform}{$ua_browser};
-				debug "Setting user-agent to: $self->{ua}";
-				return {
-					browserName => $self->{browser},
-					"phantomjs.page.settings.userAgent" => $self->{ua},
-					"phantomjs.page.settings.resourceTimeout" => 10,
-				};
-			} else {
-				return { browserName => $self->{browser},};
+				debug "Setting Phantomjs user-agent to: $self->{ua}";
+				$caps{"phantomjs.page.settings.userAgent"} = $self->{ua};
 			}
-		} else {
-			return { browserName => $self->{browser},};
 		}
+		if ($self->{headers}) {
+			for (keys %{$self->{headers}}) {
+				$caps{"phantomjs.page.customHeaders.$_"} = $self->{headers}{$_};
+			}
+		}
+		return \%caps;
+
+	} else {
+		return \{
+			browserName => $self->{browser},
+			platform    => $self->{platform},
+		};
 	}
-	return {
-		browserName => $self->{browser},
-		platform    => $self->{platform},
-	};
 }
 
 sub _parse_error

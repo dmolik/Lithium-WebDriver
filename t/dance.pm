@@ -2,7 +2,10 @@
 use strict;
 use warnings;
 use Dancer qw/!pass/;
+use Dancer::Response;
+use MIME::Base64;
 
+set serializer => 'JSON';
 our @EXPORT = qw/
 	start_dancing
 	set_port
@@ -380,6 +383,59 @@ div.left {
 EOF
 };
 
+get '/headers' => sub {
+	my $obj = { test1 => 1, test2 => [ 1, 2, 3], HTTP_TEST => request->header("HTTP_TEST")|| "No header"};
+	if (request->header('HTTP_ACCEPT') =~ m/json/i) {
+		content_type 'application/json';
+		return to_json $obj;
+	} else {
+		content_type "text/plain";
+		return to_yaml $obj;
+	}
+
+};
+
+get '/secret' => sub {
+	my $auth = request->header('Authorization');
+
+	my $authorized = undef;
+	my $html = qq|
+		<!DOCTYPE html>
+		<html lang="en_US">
+			<head>
+				<meta charset="UTF-8">
+				<title>Secret Area</title>
+			</head>
+			<body>
+				<div id="secret">
+					Your user-agent is: <span id="ua"></span>
+				</div>
+				<script type="text/javascript">
+					document.getElementById("ua").innerHTML = navigator.userAgent;
+				</script>
+			</body>
+		</html>
+	|;
+	if (defined $auth && $auth =~ /^Basic (.*)$/) {
+		my ($user, $password) = split(/:/, (MIME::Base64::decode($1) || ":"));
+		if ($user eq 'admin' && $password eq 'admin') {
+			request->env->{REMOTE_USER} = $user;
+			return $html;
+		}
+	}
+
+	my $content = "The secret realm requires authorization.";
+	return halt(Dancer::Response->new(
+		status  => 401,
+		content => $content,
+		headers => [
+			'Content-Type'     => 'text/plain',
+			'Content-Length'   =>  length($content),
+			'WWW-Authenticate' => 'Basic realm="secret"',
+		]
+	));
+
+};
 dance if $ARGV[0] && $ARGV[0] eq 'start';
 
 1;
