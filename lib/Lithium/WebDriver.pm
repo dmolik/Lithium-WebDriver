@@ -169,7 +169,7 @@ sub _capabilities
 		return \%caps;
 
 	} else {
-		return \{
+		return {
 			browserName => $self->{browser},
 			platform    => $self->{platform},
 		};
