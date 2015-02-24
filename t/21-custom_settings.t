@@ -10,6 +10,9 @@ use YAML::XS;
 
 my $site   = start_depends;
 
+plan skip_all => "The following custom headers and settings are for phantomjs only support"
+	unless is_phantom;
+
 subtest 'Test headers' => sub {
 	my $test_obj = {
 		test1     =>  1,
