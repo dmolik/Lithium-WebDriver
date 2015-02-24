@@ -8,10 +8,10 @@ use t::common;
 use JSON::XS qw/decode_json/;
 use YAML::XS;
 
-my $site   = start_depends;
-
 plan skip_all => "The following custom headers and settings are for phantomjs only support"
 	unless is_phantom;
+
+my $site   = start_depends;
 
 subtest 'Test headers' => sub {
 	my $test_obj = {
