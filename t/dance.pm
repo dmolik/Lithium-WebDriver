@@ -395,6 +395,28 @@ get '/headers' => sub {
 
 };
 
+get '/storage' => sub {
+	return <<EOF
+	<!DOCTYPE html>
+	<html lang="en_US">
+		<head>
+			<meta charset="UTF-8">
+			<title>Local Storage Test</title>
+		</head>
+		<body>
+			<div id="id1">From static: unsaved</div>
+			<script type="text/javascript">
+				if (localStorage.test1) {
+					document.getElementById("id1").innerHTML = "from local storage: "
+						+ localStorage.test1;
+				}
+				localStorage.test1 = "Saved";
+			</script>
+		</body>
+	</html>
+EOF
+};
+
 get '/secret' => sub {
 	my $auth = request->header('Authorization');
 

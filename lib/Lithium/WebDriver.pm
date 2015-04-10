@@ -99,7 +99,7 @@ sub connect
 	} or do {
 		alarm 0;
 		error "Unable to connect to webdriver at host [".$self->{base}."]";
-		return 0;
+		return undef;
 	};
 	my $capabilities = $self->_post(host => "session",
 		{ desiredCapabilities => $self->_capabilities });
@@ -124,6 +124,7 @@ sub connect
 sub disconnect
 {
 	my ($self) = @_;
+	$self->clear_storage;
 	debug "Dumping driver object";
 	dump $self;
 	debug "Disconnecting from ".$self->{host};
@@ -683,6 +684,13 @@ sub run
 	return $self->_post(path => "/execute", {script => $params{js}, args => ['ret']});
 }
 
+sub clear_storage
+{
+	my ($self) = @_;
+	debug "Clearing localstorage";
+	$self->run(js => "return localStorage.clear();");
+}
+
 sub attribute
 {
 	my ($self, %params) = @_;
@@ -761,8 +769,10 @@ for my $sub (qw/sessions status/){
 sub log_types
 {
 	my ($self) = @_;
-	my @arr = $self->_get(path => "/log/types");
-	return @arr if @arr;
+	my $arr = $self->_get(path => "/log/types");
+	debug "log object:";
+	dump @$arr;
+	return @$arr if $arr;
 	return ["NONE"];
 }
 
@@ -858,7 +868,8 @@ sub mouseover
 sub click
 {
 	my ($self, %params) = @_;
-	my $ret = $self->mouseover(%params);
+	my $ret;
+	$ret = $self->mouseover(%params) unless $params{force};
 	if(!$self->{last_res}->is_success || $params{force} || !$ret) {
 		debug "Force clicking on element $params{selector}";
 		my $id = $self->_element_id(%params);
@@ -1293,6 +1304,26 @@ B<Parameters>
 A string representation of the javascript to run.
 
 =back
+
+=back
+
+=head2 clear_storage
+
+Clear the browser's localStorage, this function is run on disconnect
+
+=over
+
+B<Calling>
+
+$DRIVER->clear_storage
+
+B<Return Values>
+
+The return value of the Browser's localStorage.clear() function.
+
+B<Parameters>
+
+None.
 
 =back
 
