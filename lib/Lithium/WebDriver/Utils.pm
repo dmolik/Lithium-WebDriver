@@ -134,7 +134,7 @@ it's important to note that the lambda function takes exactly 1 input.
 
 =head1 AUTHOR
 
-Written by Dan Molik C<< <dan at d3fy dot net> >>
+Written by Dan Molik B<< <dmolik@synacor.com> >>
 
 =cut
 

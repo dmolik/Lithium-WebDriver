@@ -72,23 +72,23 @@ Lithium::WebDriver::Phantom - Driver specific functions for connecting to phanto
 
 =head1 DESCRIPTION
 
-The selenium hub/standalones and the phantomjs webdriver behave slightly different.
-The major difference is the base url path, while the hub and standalone have an added
-/wd/hub, the phantomjs webdriver has a base path of just /.
+The selenium grid/standalones and the phantomjs webdriver behave slightly differently.
+The major difference is the base url path, while the grid and standalone selenium
+have a prepended /wd/hub, the phantomjs webdriver only has base path of just /.
 
 =head1 FUNCTIONS
 
 =head2 connect($url)
 
-Overrides Driver->connect, to as to set the phantomjs user-agent string and
-to test if the the end point is a selenium hub or a stand alone ghost driver
+Overrides Lithium::WebDriver->connect, to test if the given end point is a selenium hub
+or a stand alone ghost driver / phantomjs instance.
 
 Notice: it is no longer necessary to call visit after giving a root url, although
 this behavior is still supported.
 
 =head1 AUTHOR
 
-Written by Dan Molik C<< <dan at d3fy dot net> >>
+Written by Dan Molik B<< <dmolik@synacor.com> >>
 
 =cut
 

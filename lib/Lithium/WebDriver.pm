@@ -449,7 +449,11 @@ sub open
 	$self->_window_id_list
 		if $self->{window_tracking} eq 'noop';
 	my $status   =   $self->_post(path => "/url", {url => $params{url}});
-	return 0 unless defined $status;
+	if ($self->{browser} eq 'firefox') {
+		return 0 unless $self->{last_res}->is_success;
+	} else {
+		return 0 unless  defined $status;
+	}
 	$self->_wait_for_page(%params);
 }
 sub visit { &open(@_); }
@@ -1881,7 +1885,7 @@ design, ie: that choice should be left up to the user.
 
 =head1 AUTHOR
 
-Written by Dan Molik C<< <dan at d3fy dot net> >>
+Written by Dan Molik B<< <dmolik@synacor.com> >>
 
 =cut
 
