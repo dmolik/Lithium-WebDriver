@@ -789,10 +789,11 @@ sub browser_logs
 		debug "type found: $_\n";
 		if ($_ eq 'browser') {
 			$log_data = $self->_post(path => "/log", {type => 'browser'});
-			dump $log_data;
+			dump $log_data if $log_data;
 		}
 	}
-	return $log_data;
+	return 0 unless $log_data;
+	$log_data;
 }
 
 sub har_logs
@@ -804,6 +805,7 @@ sub har_logs
 		debug "type found: $_\n";
 		if ($_ eq 'har') {
 			$log_data = $self->_post(path => "/log", {type => 'har'});
+			dump $log_data if $log_data;
 		}
 	}
 	return 0 unless $log_data;
@@ -818,12 +820,12 @@ sub har_logs
 				debug "Method: ".$_->{request}{method}
 					.", Url: ".$url
 					.", Status: ".$status
-					.", Reason: ".$_->{response}{statusText};
+					.", Reason: ".($_->{response}{statusText} || "none");
 				push @ret_array, {
 					method => $_->{request}{method},
 					url    => $url,
 					status => $status,
-					msg    => $_->{response}{statusText},
+					msg    => $_->{response}{statusText} || "none given",
 				};
 			}
 		}
